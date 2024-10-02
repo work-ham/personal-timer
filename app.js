@@ -96,7 +96,7 @@ function startAlarm() {
   alarmInterval = setInterval(() => {
     alarmSound.currentTime = 0;
     alarmSound.play();
-  }, 3000);  // Repeat the alarm every 3 seconds
+  }, 22000);  // Repeat the alarm every 3 seconds
 }
 
 // Function to stop the repeating alarm
