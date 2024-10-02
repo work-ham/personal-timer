@@ -32,7 +32,7 @@ This project is a customizable, multi-purpose, web-based timer with a lavish des
 ### Audio Source
 
 The alarm sound used in this project is sourced from the following YouTube video by chaeyo 채요:
-[chaeyo채요 - Kawaii Ringtones #6](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+[chaeyo채요 - Kawaii Ringtones #6](https://www.youtube.com/watch?v=XW8QAes0a8Y&ab).
 
 ## Installation
 
