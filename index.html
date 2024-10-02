@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Poppins', sans-serif;
+    }
+    .lavish-style {
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 10px;
+      padding: 20px;
+      color: #333;
+    }
+    .stop-icon {
+      color: #fff;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="lavish-style p-6 max-w-sm w-full text-center">
+        <h1 class="text-4xl font-semibold mb-4">Timer</h1>
+        <div id="timer-display" class="text-6xl font-bold mb-6">00:00:00</div>
+      
+        <!-- Input for hours, minutes, and seconds -->
+        <div class="flex justify-center space-x-2 mb-4">
+          <input id="hours-input" type="number" class="form-input w-20 text-center p-2 border border-gray-300 rounded-md" placeholder="HH" min="0">
+          <input id="minutes-input" type="number" class="form-input w-20 text-center p-2 border border-gray-300 rounded-md" placeholder="MM" min="0" max="59">
+          <input id="seconds-input" type="number" class="form-input w-20 text-center p-2 border border-gray-300 rounded-md" placeholder="SS" min="0" max="59">
+        </div>
+      
+        <!-- Preset buttons -->
+        <div class="flex justify-center space-x-4 mb-4">
+          <button class="bg-green-500 text-white px-4 py-2 rounded-md preset-btn" data-time="15">15 Minutes</button>
+          <button class="bg-purple-500 text-white px-4 py-2 rounded-md preset-btn" data-time="10">10 Minutes</button>
+          <button class="bg-pink-500 text-white px-4 py-2 rounded-md preset-btn" data-time="5">5 Minutes</button>
+        </div>
+      
+        <!-- Control buttons -->
+        <div class="flex justify-center space-x-4">
+          <button id="start-btn" class="bg-blue-500 text-white px-4 py-2 rounded-md">Start</button>
+          <button id="pause-btn" class="bg-yellow-500 text-white px-4 py-2 rounded-md">Pause</button>
+          <button id="reset-btn" class="bg-red-500 text-white px-4 py-2 rounded-md">Reset</button>
+          <button id="stop-btn" class="bg-pink-600 text-white px-4 py-2 rounded-md flex items-center">
+            <i class="fas fa-stop stop-icon"></i> Stop
+          </button>
+        </div>
+      
+        <!-- Sound alert -->
+        <audio id="alarm-sound" src="alarm.mp3"></audio>
+      </div>
+      
+
+  <script src="app.js"></script>
+</body>
+</html>
