@@ -9,7 +9,8 @@ const hoursInput = document.getElementById("hours-input");
 const minutesInput = document.getElementById("minutes-input");
 const secondsInput = document.getElementById("seconds-input");
 
-let timeRemaining = 0;
+let startTime = null;
+let timerDuration = 0;
 let timerInterval = null;
 let alarmInterval = null;
 let isPaused = false;
@@ -28,7 +29,7 @@ presetButtons.forEach(button => {
     hoursInput.value = 0;
     minutesInput.value = presetMinutes;
     secondsInput.value = 0;
-    startTimer();  // Automatically start with the preset
+    startTimer(); // Automatically start with the preset
   });
 });
 
@@ -38,16 +39,19 @@ function startTimer() {
     const hours = parseInt(hoursInput.value) || 0;
     const minutes = parseInt(minutesInput.value) || 0;
     const seconds = parseInt(secondsInput.value) || 0;
-    
-    timeRemaining = (hours * 3600) + (minutes * 60) + seconds;
+
+    timerDuration = (hours * 3600 + minutes * 60 + seconds) * 1000;
+    startTime = Date.now();
     isPaused = false;
+  } else {
+    startTime = Date.now() - (timerDuration - (Date.now() - startTime));
   }
 
   if (timerInterval) {
     clearInterval(timerInterval);
   }
 
-  timerInterval = setInterval(updateTimer, 1000);
+  timerInterval = setInterval(updateTimer, 100);
 }
 
 function pauseTimer() {
@@ -59,25 +63,28 @@ function pauseTimer() {
 
 function resetTimer() {
   clearInterval(timerInterval);
-  timeRemaining = 0;
+  timerDuration = 0;
+  startTime = null;
   timerDisplay.textContent = "00:00:00";
-  document.title = "Lavish Timer";  // Reset the title when the timer is reset
-  stopAlarm();  // Also stop the alarm when resetting
+  document.title = "Lavish Timer"; // Reset the title when the timer is reset
+  stopAlarm(); // Also stop the alarm when resetting
 }
 
 function updateTimer() {
+  const elapsed = Date.now() - startTime;
+  const timeRemaining = Math.max(timerDuration - elapsed, 0);
+
   if (timeRemaining <= 0) {
     clearInterval(timerInterval);
-    startAlarm();  // Start the alarm when time reaches zero
-    document.title = "Time's up!";  // Set title to show when time is up
+    startAlarm(); // Start the alarm when time reaches zero
+    document.title = "Time's up!"; // Set title to show when time is up
+    timerDisplay.textContent = "00:00:00";
     return;
   }
 
-  timeRemaining--;
-
-  const hours = Math.floor(timeRemaining / 3600);
-  const minutes = Math.floor((timeRemaining % 3600) / 60);
-  const seconds = timeRemaining % 60;
+  const hours = Math.floor(timeRemaining / 3600000);
+  const minutes = Math.floor((timeRemaining % 3600000) / 60000);
+  const seconds = Math.floor((timeRemaining % 60000) / 1000);
 
   const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   timerDisplay.textContent = formattedTime;
@@ -96,12 +103,12 @@ function startAlarm() {
   alarmInterval = setInterval(() => {
     alarmSound.currentTime = 0;
     alarmSound.play();
-  }, 22000);  // Repeat the alarm every 3 seconds
+  }, 22000); // Repeat the alarm every 22 seconds
 }
 
 // Function to stop the repeating alarm
 function stopAlarm() {
   clearInterval(alarmInterval);
   alarmSound.pause();
-  alarmSound.currentTime = 0;  // Reset the alarm sound to the start
+  alarmSound.currentTime = 0; // Reset the alarm sound to the start
 }
