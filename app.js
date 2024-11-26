@@ -66,7 +66,7 @@ function resetTimer() {
   timerDuration = 0;
   startTime = null;
   timerDisplay.textContent = "00:00:00";
-  document.title = "Lavish Timer"; // Reset the title when the timer is reset
+  document.title = "Personal Timer"; // Reset the title when the timer is reset
   stopAlarm(); // Also stop the alarm when resetting
 }
 
@@ -103,7 +103,7 @@ function startAlarm() {
   alarmInterval = setInterval(() => {
     alarmSound.currentTime = 0;
     alarmSound.play();
-  }, 22000); // Repeat the alarm every 22 seconds
+  }, 61000); // Repeat the alarm every 1 minute 1 seconds
 }
 
 // Function to stop the repeating alarm
